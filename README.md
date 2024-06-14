@@ -1,9 +1,9 @@
 # The Sky is Falling!
 
-## Project Proposal
-**GROUP 4: The Sky is Falling!**
 
-### Idea
+**Mission, The Sky is Falling!**
+
+### The Challenge
 Build an interactive map of the different types of meteorites that have fallen from the sky between the years 2016 and 2024 around the world. The user will be able to see what type of meteorite it is (meteorites are often divided into three overall categories based on whether they are dominantly composed of rocky material, metallic material, or mixtures) and the mass in grams in a colorful way, including a drop-down menu to choose the year(s) and category type. The dataset contains over 45,000 rows of data!
 
 ### Approach
