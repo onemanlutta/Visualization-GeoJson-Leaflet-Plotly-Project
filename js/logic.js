@@ -1,5 +1,5 @@
   // Store the API query variables.
-  let geoData = "data/meteorites_draft.geojson";
+  let geoData = "meteorites_draft.geojson";
 
   // Get the data with d3.
   d3.json(geoData).then(function(data) {
@@ -18,6 +18,7 @@
 
 function createFeatures(meteorite_data) {
 
+  // Add circleMarkers layer
     function onEachFeature(feature, layer) {
         layer.bindPopup(`<h3>Meteorite Name: ${feature.properties.name}</h3>
         <h3>Meteritie Rock-type: ${feature.properties.group_name}</h3>
@@ -43,13 +44,59 @@ function createFeatures(meteorite_data) {
         }
 
         })
-        createMap(meteorites)
+
+      // Add Markers layer
+        let features = meteorite_data
+        // Create a new marker cluster group.
+        let markers = L.markerClusterGroup();
+      
+        // Meteorite icon licence
+        // License: Creative Commons 4.0 BY-NC
+        var meteoriteIcon = L.icon({
+          iconUrl: 'Meteorite.png',
+          iconSize:     [50, 50], // size of the icon
+          iconAnchor:   [43, 43], // point of the icon which will correspond to marker's location
+          popupAnchor:  [-10, -10] // point from which the popup should open relative to the iconAnchor
+      });
+
+        // Loop through the data.
+        for (let i = 0; i < features.length; i++) {
+      
+          // Set the data location property to a variable.
+            let location = features[i].geometry;
+          // Check for the location property.
+          if (location) {
+      
+            // Add a new marker to the cluster group, and bind a popup.
+            markers.addLayer(L.marker([location.coordinates[1], location.coordinates[0]], {icon: meteoriteIcon})
+              .bindPopup(features[i].properties.name));
+        
+        }
+      };
+
+      // Add Heatmap layer
+        let heatArray = [];
+
+        for (let i = 0; i < features.length; i++) {
+          let location = features[i].geometry;
+          if (location) {
+            //console.log(location);
+            heatArray.push([location.coordinates[1], location.coordinates[0]]);
+          }
+
+        }
+
+        let heat = L.heatLayer(heatArray, {
+          radius: 30,
+          blur: 15})
+
+        createMap(meteorites, markers, heat)
 
 }
   
 
 
-  function createMap(meteorites) {
+  function createMap(meteorites, markers, heat) {
     // Add the tile layer street
     let street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -66,13 +113,17 @@ function createFeatures(meteorite_data) {
       };
 
       let overlayMaps = {
-        Meteorites: meteorites
+        "Meteorite locations": meteorites,
+        "Meteorite regional groups": markers, 
+        "Meteorite Heatmap": heat
       };
 
       // Create the map object
       let myMap = L.map("map", {
         center: [0,0],
         zoom: 2.5, 
+        minZoom: 3,
+        // maxZoom: 3,
         layers: [street, meteorites]
       });
 
@@ -94,5 +145,3 @@ function createFeatures(meteorite_data) {
     titleBox.addTo(myMap)
 
 };
-
-
