@@ -61,9 +61,8 @@ function createFeatures(meteorite_data) {
         <h3>Meteritie Rock-type: ${feature.properties.group_name}</h3>
         <h3>Meteorite Class: ${feature.properties.class_name}</h3><hr>
         <p><b>Year:</b> ${feature.properties.year}
-        <p><b>Mass:</b> ${feature.properties.mass}
-        <p><b>Location (Lat/Lon):</b> ${feature.properties.GeoLocation
-        } kms`)
+        <p><b>Mass:</b> ${Math.round((feature.properties.mass/1000 + Number.EPSILON)*100)/100} kgs 
+        <p><b>Location (Lat/Lon):</b> Lat: ${feature.properties.reclat} - Lon: ${feature.properties.reclong}`)
     }
     // Add circle marker layer
     let meteorites = L.geoJson(meteorite_data, {
@@ -71,7 +70,7 @@ function createFeatures(meteorite_data) {
         onEachFeature: onEachFeature,
         pointToLayer: function (feature, latlng) {
             return L.circleMarker(latlng, {
-                radius: feature.properties.mass /1000000,
+                radius: feature.properties.log_mass,
                 fillColor: colorpicker(feature.properties.group_name),
                 color: colorpicker(feature.properties.group_name),
                 weight: 1,
@@ -89,12 +88,12 @@ function createFeatures(meteorite_data) {
       
         // Meteorite icon licence
         // License: Creative Commons 4.0 BY-NC
-      //   var meteoriteIcon = L.icon({
-      //     iconUrl: 'Meteorite.png',
-      //     iconSize:     [10000, 10000], // size of the icon
-      //     iconAnchor:   [43, 43], // point of the icon which will correspond to marker's location
-      //     popupAnchor:  [-10, -10] // point from which the popup should open relative to the iconAnchor
-      // });
+        var meteoriteIcon = L.icon({
+          iconUrl: 'Meteorite.png',
+          iconSize:     [10000, 10000], // size of the icon
+          iconAnchor:   [43, 43], // point of the icon which will correspond to marker's location
+          popupAnchor:  [-10, -10] // point from which the popup should open relative to the iconAnchor
+      });
 
         // Loop through the data
         for (let i = 0; i < features.length; i++) {
@@ -105,7 +104,7 @@ function createFeatures(meteorite_data) {
           if (location) {
       
             // Add a new marker to the cluster group, and bind a popup.
-            markers.addLayer(L.marker([location.coordinates[1], location.coordinates[0]]) // Removed from inside parentheses- , {icon: meteoriteIcon}
+            markers.addLayer(L.marker([location.coordinates[1], location.coordinates[0]], {icon: meteoriteIcon}) // Removed from inside parentheses- , {icon: meteoriteIcon}
               .bindPopup(features[i].properties.name));
         
         }
