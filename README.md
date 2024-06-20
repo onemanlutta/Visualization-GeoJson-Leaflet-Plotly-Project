@@ -58,7 +58,7 @@ To provide an interactive and educational tool that allows users to explore mete
 - Database integration using SQL Alchemy
 - Uploading the dataset to a Postgres instance
 
-### Nicholas Wiid and Pablos Andres Guinda
+### Pablos Andres Guinda
 - Front-end development using JavaScript
 - Creating the interactive map using Leaflet/D3/Plotly
 - Deploying the map using GitHub Pages
