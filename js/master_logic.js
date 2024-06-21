@@ -34,10 +34,62 @@ async function fetchData() {
     console.log(geojsonData)
     // RUn the create features function with converted data
     createFeatures(geojsonData)
+    buildCharts(meteoriteData);
   })
 }
 
+console.log(meteoriteData)
 
+// Build the buildCharts panel
+function buildCharts(data) {
+  console.log('Data passed to buildCharts:', data);
+
+  // Extract year_bin from the data
+  const yearBins = data.map(d => d.year_bin);
+  console.log('Year Bins:', yearBins);
+
+  // Count occurrences of each year_bin
+  const yearBinCounts = {};
+  yearBins.forEach(bin => {
+      if (yearBinCounts[bin]) {
+          yearBinCounts[bin]++;
+      } else {
+          yearBinCounts[bin] = 1;
+      }
+  });
+  console.log('Year Bin Counts:', yearBinCounts);
+
+  // Prepare data for Plotly
+  const barData = [{
+      x: Object.keys(yearBinCounts),
+      y: Object.values(yearBinCounts),
+      type: 'bar',
+      // orientation: 'h'
+
+  }];
+
+  const layout = {
+      title: 'Meteorite Strikes by Year Group',
+      xaxis: { title: 'Number of Strikes' },
+      yaxis: { title: 'Year Bin' },
+      autosize: true,
+      height: 250,
+      width: 300,
+      margin: {
+            l: 35, // left margin
+            r: 20, // right margin
+            t: 50, // top margin
+            b: 70  // bottom margin
+          },
+      yaxis: {
+              tickangle: 315 },
+      xaxis: {
+          tickangle: 315 }
+  };
+
+  // Render the bar chart
+  Plotly.newPlot('chart', barData, layout);
+}
 
 // Define function to choose circle marker colors
 function colorpicker(meteorite_type) {
@@ -188,7 +240,7 @@ function createMap(meteoritesLayer, markersLayer, heatLayer, deathsLayer) {
   // Create the map object
   let myMap = L.map("map", {
     center: [0, 0],
-    zoom: 2,
+    zoom: 3,
     minZoom: 2,
     // maxZoom: 3,
     layers: [smooth, meteoritesLayer]

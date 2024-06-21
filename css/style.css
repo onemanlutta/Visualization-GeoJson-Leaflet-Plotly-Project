@@ -25,8 +25,6 @@ html {
 .container {
   height: 100%;
   width: 100%;
-  width: 100%;
-  
 }
 
 .header_box {
@@ -41,6 +39,17 @@ html {
   background-color: rgb(200, 221, 237);
 }
 
-.map-box {
-  height: 80%;
+.barchart {
+  background-color: rgb(200, 221, 237);
+  height: 300px
 }
+
+.video-box {
+  background-color: rgb(200, 221, 237);
+}
+
+.map-box {
+  height: 100%;
+  margin-bottom: 20px;
+}
+

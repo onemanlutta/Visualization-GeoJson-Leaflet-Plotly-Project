@@ -34,7 +34,7 @@
 
   </head>
   <body>
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
         <div class="col-md-12 p-2 text-center header_box">
           <h2>The Sky is Falling</h2>Historical record of Meteorite landings</h3>
@@ -43,29 +43,34 @@
       <br>
       <div class="row map-box">
         <div class="col-md-3">
-          <div class="card card-body selectorbox">
-            <h6>Test dropdown:</h6>
-            <select id="selDataset" ></select>
-          </div>
-          <br>
-          <div class="card card-primary">
-            <div class="card-header">
-              <h4 class="card-title">Info</h4>
+          <div class="card card-body video-box">
+            <h6>Meteor Showers 101 | National Geographic</h6>
+            <div id="video" class="video-box">
+              <iframe width="100%" height="220" src="https://www.youtube.com/embed/zkglsg0K1IY" title="Meteor Showers 101 | National Geographic" frameborder="0" allowfullscreen></iframe>
             </div>
-              <div id="sample-metadata" class="card-body">
-              </div>
           </div>
           <br>
-          <div class="card card-body selectorbox">
-            <h6>Bar chart:</h6>
+          <div class="card card-body barchart">
+            <h6>Meteorite Strikes by Year Group</h6>
             <div id="chart" class="chart-left">
             </div>
           </div>
         </div>
-        <div class="col-md-9 p-7">
-          <div id="map" class="flex-grow-1"></div>
+        <br>
+        <div class="col-md-9 p-4">
+          <div id="map" class="flex-grow-1">
+          </div>
+          <br>
         </div>
       </div>
+      <div class="card card-primary">
+        <div class="card-header">
+          <h4 class="card-title">Info</h4>
+        </div>
+        <div id="sample-metadata" class="card-body">
+        </div>
+      </div>
+      <br>
     </div>
     
 
@@ -73,5 +78,6 @@
     <script src="js/master_logic.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- <script src="js/barchart.js"></script> -->
   </body>
 </html>
