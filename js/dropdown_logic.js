@@ -4,20 +4,17 @@ var newMeteoritesLayer;
 
 // Define function to fetch data from local server
 
-d3.selectAll('#dropdownMenu').on('change', fetchDataAndSetGlobal)
+d3.selectAll('#dropdownMenu').on('change', updateMap)
 
 // Function to perform asynchronous operation and return a Promise
-function fetchData() {
+function getData() {
   return new Promise((resolve, reject) => {
-    fetch('http://localhost:3000/api/data').then(response => {
-        return response.json();
-      }).then(data => {
-        resolve(data);
-      });
+    d3.json('http://localhost:3000/api/data')
+      .then(data => resolve(data));
   });
 }
 
-function makeLayers(meteoriteData) {
+function filterData(meteoriteData) {
     console.log(meteoriteData)
     let dropdownMenu = d3.select('#dropdownMenu')
     var yearGroup = dropdownMenu.property("value");
@@ -99,24 +96,17 @@ function makeLayers(meteoriteData) {
     console.log(geojsonData)
     // Run the create features function with converted data
   
-    createFeatures(geojsonData)
+    updateLayers(geojsonData)
 }
 
 
 // Function to initiate fetching data and set global variable after a timeout
-function fetchDataAndSetGlobal() {
-  fetchData().then(data => {
-    // Store data in global variable after 3 seconds
-    setTimeout(() => {
+function updateMap() {
+  getData().then(data => {
       meteoriteData = data;
-      console.log("Global variable 'meteoriteData' has been set:", meteoriteData);
-      
-      makeLayers(meteoriteData)
-    }, 3000); // Set globalData after 3 seconds
-  
-}).catch(error => {
-    console.error('Error fetching data:', error);
+      console.log("Variable 'meteoriteData' has been set:", meteoriteData);
 
+      filterData(meteoriteData)
   });
 }
 
@@ -131,7 +121,7 @@ function colorpicker(meteorite_type) {
 }
 
 // Define function to create the map features
-function createFeatures(meteorite_data) {
+function updateLayers(meteorite_data) {
     // Remove the existing meteoritesLayer if it exists
   if (newMeteoritesLayer) {
     myMap.removeLayer(newMeteoritesLayer);
@@ -196,7 +186,7 @@ var layerControl = L.control.layers(baseMaps, overlayMaps, {
     }).addTo(myMap);
 
 // Fetch data from local sever an run maps
-fetchDataAndSetGlobal()
+updateMap()
 
 
 ///// Dropdown setup
