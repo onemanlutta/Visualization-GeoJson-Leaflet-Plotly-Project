@@ -25,8 +25,8 @@ function filterData(meteoriteData) {
         if (yearGroup === 'default') {
             yearData = meteoriteData
         }
-        else if (yearGroup === '0-1950') {
-            yearData = meteoriteData.filter(data => data.year_bin == '1950 & Prior')
+        else if (yearGroup === '0-1949') {
+            yearData = meteoriteData.filter(data => data.year_bin == '1949 & Prior')
         }
         else if (yearGroup === '1950-1959') {
             yearData = meteoriteData.filter(data => data.year_bin == '1950-1959')
@@ -109,26 +109,37 @@ function updateMap() {
 // Build the buildCharts panel
 function buildCharts(data) {
   // Extract year_bin from the data
-  const yearBins = data.map(d => d.year_bin);
+  const yearBins = [
+    '1949 & Prior', '1950-1959', '1960-1969', '1970-1979',
+    '1980-1989', '1990-1999', '2000-2009', '2010-2019',
+    '2020 & Later', '65 million years ago'
+  ];
 
   // Count occurrences of each year_bin
   const yearBinCounts = {};
   yearBins.forEach(bin => {
-      if (yearBinCounts[bin]) {
-          yearBinCounts[bin]++;
-      } else {
-          yearBinCounts[bin] = 1;
-      }
+    yearBinCounts[bin] = 0;
+  });
+
+  // Count occurrences of each year_bin
+  data.forEach(d => {
+    // Assume d.year_bin contains the appropriate bin name (e.g., '1950-1959')
+    if (yearBinCounts[d.year_bin]) {
+      yearBinCounts[d.year_bin]++;
+    } else {
+      yearBinCounts[d.year_bin] = 1;
+    }
   });
 
   // Prepare data for Plotly
-  const barData = [{
-      x: Object.keys(yearBinCounts),
-      y: Object.values(yearBinCounts),
-      type: 'bar',
-      // orientation: 'h'
+  const sortedCounts = yearBins.map(bin => yearBinCounts[bin]);
 
+  const barData = [{
+    x: yearBins,
+    y: sortedCounts,
+    type: 'bar'
   }];
+
 
   const layout = {
       title: 'Meteorite Strikes by Year Group',
