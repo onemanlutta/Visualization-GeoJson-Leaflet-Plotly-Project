@@ -2,6 +2,7 @@
 var meteoriteData = []
 var newMeteoritesLayer;
 var deathsLayer;
+var fellLayer;
 var newMarkersLayer;
 
 // Define function to fetch data from local server
@@ -25,7 +26,7 @@ function filterData(meteoriteData) {
         if (yearGroup === 'default') {
             yearData = meteoriteData
         }
-        else if (yearGroup === '0-1949') {
+        else if (yearGroup === '1949 & Prior') {
             yearData = meteoriteData.filter(data => data.year_bin == '1949 & Prior')
         }
         else if (yearGroup === '1950-1959') {
@@ -90,8 +91,8 @@ function filterData(meteoriteData) {
         }))
     };
     // Run the create features function with converted data
-  
-    updateLayers(geojsonData)
+    updateDynamicLayers(geojsonData)
+    buildStaticLayers(geojsonData)
     buildCharts(meteoriteData)
 }
 
@@ -175,20 +176,13 @@ function colorpicker(meteorite_type) {
 }
 
 // Define function to create the map features
-function updateLayers(meteorite_data) {
+function updateDynamicLayers(meteorite_data) {
     // Remove the existing meteoritesLayer if it exists
   if (newMeteoritesLayer) {
     myMap.removeLayer(newMeteoritesLayer);
     layerControl.removeLayer(newMeteoritesLayer);
   }
-  if (deathsLayer) {
-    myMap.removeLayer(deathsLayer);
-    layerControl.removeLayer(deathsLayer);
-  }
-  if (newMarkersLayer) {
-      myMap.removeLayer(newMarkersLayer);
-      layerControl.removeLayer(newMarkersLayer);
-  }
+  
    
     function onEachFeature(feature, layer) {
       layer.bindPopup(`<h3>Meteorite Name: ${feature.properties.name}</h3>
@@ -214,6 +208,26 @@ pointToLayer: function (feature, latlng) {
   });
   }
 })
+
+// Add overlay maps overlay maps
+myMap.addLayer(newMeteoritesLayer)
+layerControl.addOverlay(newMeteoritesLayer, "Rock type")
+}
+
+function buildStaticLayers(meteorite_data) {
+
+if (deathsLayer) {
+  myMap.removeLayer(deathsLayer);
+  layerControl.removeLayer(deathsLayer);
+}
+if (newMarkersLayer) {
+    myMap.removeLayer(newMarkersLayer);
+    layerControl.removeLayer(newMarkersLayer);
+}
+if (fellLayer) {
+  myMap.removeLayer(fellLayer);
+  layerControl.removeLayer(fellLayer);
+}
 
 // Save data features to variable
 let features = meteorite_data.features
@@ -266,11 +280,37 @@ for (let i = 0; i < deathsData.length; i++) {
   }
 }
 
+// Add deaths layer
+let fellfeatures = meteorite_data.features
+fellLayer = L.markerClusterGroup()
+
+//  Wikimedia commons https://commons.wikimedia.org/wiki/File:Skull_%26_Crossbones_BW.png
+var fellIcon = L.icon({
+  iconUrl: 'icons/meteor.png',
+  iconSize: [40, 50],
+  iconAnchor: [43, 43],
+  popupAnchor: [-10, -10]
+});
+
+let fellData = fellfeatures.filter(data => data.properties.fall == 'Fell')
+for (let i = 0; i < fellData.length; i++) {
+  // Set the data location property to a variable
+  let fellLocations = fellData[i].geometry
+  // Check for the location property.
+  if (fellLocations) {
+    // Add a new marker to the cluster group, and bind a popup.
+    fellLayer.addLayer(L.marker([fellLocations.coordinates[1], fellLocations.coordinates[0]], { icon: fellIcon })
+      .bindPopup(`Name and year: ${fellData[i].properties.name}
+        <p><b>Year:</b> ${fellData[i].properties.year}`));
+  }
+}
+
 // Add overlay maps overlay maps
-myMap.addLayer(newMeteoritesLayer)
-layerControl.addOverlay(newMeteoritesLayer, "Rock type")
+
 layerControl.addOverlay(newMarkersLayer, "Locations")
 layerControl.addOverlay(deathsLayer, "Deaths")
+layerControl.addOverlay(fellLayer, "Seen and found")
+
 }
 
 // Add the tile layer smooth
