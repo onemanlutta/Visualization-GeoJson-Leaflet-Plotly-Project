@@ -4,9 +4,9 @@ body {
   height: 100%;
   width: 100%;
   background-image: url('stars.jpg');
-  background-size: 100%; /* or use 'contain' depending on your preference */
+  background-size: 100%;
   background-repeat: no-repeat;
-  background-attachment: fixed; /* ensures the background image does not scroll */
+  background-attachment: fixed;
 }
 
 #map {

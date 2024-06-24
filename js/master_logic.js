@@ -355,8 +355,7 @@ let overlayMaps = {}
 let myMap = L.map("map", {
 center: [0, 0],
 zoom: 2,
-minZoom: 3,
-// maxZoom: 3,
+minZoom: 2,
 layers: [smooth]
 });
 
@@ -365,37 +364,6 @@ var layerControl = L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
     }).addTo(myMap);
 
-
-
 // Fetch data from local sever an run maps
 updateMap()
 addLegend()
-
-
-///// Dropdown setup
-//  var dropdownContainer = document.getElementById('dropdownContainer');
-//  var select = document.createElement('select');
-//    select.id = 'dropdownMenu'
- 
-//  var yearBins = [
-//    {value: 'default', text: 'All Years'},
-//    {value: '0-1950', text: '1950 & Prior'},
-//    {value: '1950-1959', text: '1950-1959'},
-//    {value: '1960-1969', text: '1960-1969'},
-//    {value: '1970-1979', text: '1970-1979'},
-//    {value: '1980-1989', text: '1980-1989'},
-//    {value: '1990-1999', text: '1990-1999'},
-//    {value: '2000-2009', text: '2000-2009'},
-//    {value: '2010-2019', text: '2010-2019'},
-//    {value: '2020 to date', text: '2020 to date'},
-//    {value: '65 million-', text: '65 million years ago'}
-//  ]
- 
-//  yearBins.forEach(function(yearbin) {
-//    var option = document.createElement('option');
-//    option.value = yearbin.value;
-//    option.text = yearbin.text;
-//    select.appendChild(option)
-//  })
- 
-//  dropdownContainer.appendChild(select)
