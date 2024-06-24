@@ -1,15 +1,14 @@
-// Define a new array variable to hold the data
+// Define variables to hold the data and initialize layers
 var meteoriteData = []
 var newMeteoritesLayer;
 var deathsLayer;
 var fellLayer;
 var newMarkersLayer;
 
-// Define function to fetch data from local server
-
+// Setup the listener
 d3.selectAll('#dropdownMenu').on('change', updateMap)
 
-// Function to perform asynchronous operation and return a Promise
+// Define function to fetch data from local server
 function getData() {
   return new Promise((resolve, reject) => {
     d3.json('http://localhost:3000/api/data')
@@ -93,7 +92,7 @@ function filterData(meteoriteData) {
     // Run the create features function with converted data
     updateDynamicLayers(geojsonData)
     buildStaticLayers(geojsonData)
-    buildCharts(meteoriteData)
+    buildCharts(yearData)
 }
 
 
@@ -143,17 +142,17 @@ function buildCharts(data) {
 
 
   const layout = {
-      title: 'Meteorite Strikes by Year Group',
+      title: '',
       xaxis: { title: 'Number of Strikes' },
       yaxis: { title: 'Year Bin' },
       autosize: true,
       height: 250,
       width: 300,
       margin: {
-            l: 35, // left margin
-            r: 20, // right margin
-            t: 50, // top margin
-            b: 70  // bottom margin
+            l: 35,
+            r: 20,
+            t: 50,
+            b: 70
           },
       yaxis: {
               tickangle: 315 },
@@ -175,6 +174,35 @@ function colorpicker(meteorite_type) {
 
 }
 
+function addLegend() {
+  // Function to add legend to the map
+  var legend = L.control({ position: 'bottomright' });
+  legend.onAdd = function () {
+      var div = L.DomUtil.create('div', 'info legend');
+      let rocktype_colors = {
+        'Stony Meteorite': "#404040",
+        'Stony-iron meteorite':'#f4a582',
+        'Iron meteorite':'#ca0020',
+        'Unknown': "#bababa"
+      };
+      let labels = []
+  
+      var legendInfo = "<h6>Meteorite rock type</h6>" +
+      "<div class=\"labels\">"
+  
+      for (let type in rocktype_colors) {
+        let color = rocktype_colors[type]
+        labels.push('<i style="background:' + color + '"></i> ' + type + '<br>');
+      }
+  
+      legendInfo += "<ul>" + labels.join("") + "</ul>";
+      div.innerHTML = legendInfo;
+      return div;
+  ;
+  }
+  legend.addTo(myMap)
+  }
+
 // Define function to create the map features
 function updateDynamicLayers(meteorite_data) {
     // Remove the existing meteoritesLayer if it exists
@@ -185,9 +213,9 @@ function updateDynamicLayers(meteorite_data) {
   
    
     function onEachFeature(feature, layer) {
-      layer.bindPopup(`<h3>Meteorite Name: ${feature.properties.name}</h3>
-        <h3>Meteritie Rock-type: ${feature.properties.group_name}</h3>
-        <h3>Meteorite Class: ${feature.properties.class_name}</h3><hr>
+      layer.bindPopup(`<h6>Meteorite Name: ${feature.properties.name}</h6>
+        <h6>Meteritie Rock-type: ${feature.properties.group_name}</h6>
+        <h6>Meteorite Class: ${feature.properties.class_name}</h6><hr>
         <p><b>Year:</b> ${feature.properties.year}
         <p><b>Mass:</b> ${feature.properties.mass_string}
         <p><b>Diameter:</b> ${feature.properties.meteorite_width_cm_string}
@@ -214,48 +242,19 @@ myMap.addLayer(newMeteoritesLayer)
 layerControl.addOverlay(newMeteoritesLayer, "Rock type")
 }
 
+// Function to built static layers
 function buildStaticLayers(meteorite_data) {
-
 if (deathsLayer) {
   myMap.removeLayer(deathsLayer);
   layerControl.removeLayer(deathsLayer);
-}
-if (newMarkersLayer) {
-    myMap.removeLayer(newMarkersLayer);
-    layerControl.removeLayer(newMarkersLayer);
 }
 if (fellLayer) {
   myMap.removeLayer(fellLayer);
   layerControl.removeLayer(fellLayer);
 }
 
-// Save data features to variable
-let features = meteorite_data.features
-// Create a new marker cluster group.
-newMarkersLayer = L.markerClusterGroup();
 
-// Meteorite icon licence
-// License: Creative Commons 4.0 BY-NC
-  var meteoriteIcon = L.icon({
-    iconUrl: 'icons/meteor.png',
-    iconSize:     [50, 50],
-    iconAnchor:   [43, 43], 
-    popupAnchor:  [-10, -10]
-});
-
-// Loop through the data
-for (let i = 0; i < features.length; i++) {
-  // Set the data location property to a variable
-  let location = features[i].geometry;
-  // Check for the location property.
-  if (location) {
-    // Add a new marker to the cluster group, and bind a popup.
-    newMarkersLayer.addLayer(L.marker([location.coordinates[1], location.coordinates[0]], {icon: meteoriteIcon})
-      .bindPopup(features[i].properties.name));
-  }
-};
-
-// Add deaths layer
+// Create deaths layer - Meteorite related deaths
 let deathsfeatures = meteorite_data.features
 deathsLayer = L.markerClusterGroup()
 
@@ -275,20 +274,26 @@ for (let i = 0; i < deathsData.length; i++) {
   if (deathLocations) {
     // Add a new marker to the cluster group, and bind a popup.
     deathsLayer.addLayer(L.marker([deathLocations.coordinates[1], deathLocations.coordinates[0]], { icon: deathsIcon })
-      .bindPopup(`Name and year: ${deathsData[i].properties.name}<hr>
-        Number of deaths: ${deathsData[i].properties.deaths}`));
+      .bindPopup(`<h6>Meteorite Name: ${deathsData[i].properties.name}</h6>
+        <h6>Meteritie Rock-type: ${deathsData[i].properties.group_name}</h6>
+        <h6>Meteorite Class: ${deathsData[i].properties.class_name}</h6><hr>
+        <p><b>Year:</b> ${deathsData[i].properties.year}
+        <p><b>Mass:</b> ${deathsData[i].properties.mass_string}
+        <p><b>Diameter:</b> ${deathsData[i].properties.meteorite_width_cm_string}
+        <p><b>Location:</b> Lat: ${deathsData[i].properties.reclat} - Lon: ${deathsData[i].properties.reclong}
+        <p><b>Number of deaths:</b> ${deathsData[i].properties.deaths_string}`));
   }
 }
 
-// Add deaths layer
+// Create fell layers - Meteorite sitings
 let fellfeatures = meteorite_data.features
 fellLayer = L.markerClusterGroup()
 
-//  Wikimedia commons https://commons.wikimedia.org/wiki/File:Skull_%26_Crossbones_BW.png
+//  https://pngimg.com/image/63932 License: Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
 var fellIcon = L.icon({
-  iconUrl: 'icons/meteor.png',
-  iconSize: [40, 50],
-  iconAnchor: [43, 43],
+  iconUrl: 'icons/meteor2.png',
+  iconSize: [60, 80],
+  iconAnchor: [50, 50],
   popupAnchor: [-10, -10]
 });
 
@@ -300,14 +305,17 @@ for (let i = 0; i < fellData.length; i++) {
   if (fellLocations) {
     // Add a new marker to the cluster group, and bind a popup.
     fellLayer.addLayer(L.marker([fellLocations.coordinates[1], fellLocations.coordinates[0]], { icon: fellIcon })
-      .bindPopup(`Name and year: ${fellData[i].properties.name}
-        <p><b>Year:</b> ${fellData[i].properties.year}`));
+      .bindPopup(`<h6>Meteorite Name: ${fellData[i].properties.name}</h6>
+        <h6>Meteritie Rock-type: ${fellData[i].properties.group_name}</h6>
+        <h6>Meteorite Class: ${fellData[i].properties.class_name}</h6><hr>
+        <p><b>Year:</b> ${fellData[i].properties.year}
+        <p><b>Mass:</b> ${fellData[i].properties.mass_string}
+        <p><b>Diameter:</b> ${fellData[i].properties.meteorite_width_cm_string}
+        <p><b>Location:</b> Lat: ${fellData[i].properties.reclat} - Lon: ${fellData[i].properties.reclong}`));
   }
 }
 
 // Add overlay maps overlay maps
-
-layerControl.addOverlay(newMarkersLayer, "Locations")
 layerControl.addOverlay(deathsLayer, "Deaths")
 layerControl.addOverlay(fellLayer, "Seen and found")
 
@@ -357,8 +365,11 @@ var layerControl = L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
     }).addTo(myMap);
 
+
+
 // Fetch data from local sever an run maps
 updateMap()
+addLegend()
 
 
 ///// Dropdown setup

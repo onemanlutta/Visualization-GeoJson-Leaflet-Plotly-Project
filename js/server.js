@@ -25,7 +25,7 @@ async function getData() {
         // Access the database
         const meteordb = client.db("meteorite_landings");
         // Access the desired collection
-        const meteorCollection = await meteordb.collection("meteorite_geo");
+        const meteorCollection = meteordb.collection("meteorite_geo");
         const meteorData = await meteorCollection.find({}).toArray();
 
         return meteorData;
