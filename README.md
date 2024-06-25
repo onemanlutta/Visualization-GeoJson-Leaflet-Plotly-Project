@@ -77,29 +77,32 @@ To provide an interactive and educational tool that allows users to explore mete
 
 ### Project File Structure
 
-|-- CSS/
-|   |-- style.css
-|-- data/
-|   |-- meteorite-landings.csv
-|   |-- meteorites_draft.geojson
-|-- ETL notebook/
-|   |-- meteorite-landings.ipynb
-|-- icons/
-|   |-- meteor.png
-|   |-- meteor2.png
-|   |-- skull.png
-|-- js/
-|   |-- leaflet-heat.js
-|   |-- master_logic.js
-|   |-- server.js
-|-- master_index.html
-|-- README.md
-|-- The Sky is Falling!!!.ppt
-|-- TheDashboard.png
-|-- TheProcessMap.png
+|-- CSS/ 
+| |-- style.css 
+|-- data/ 
+| |-- final_meteorite_data.csv 
+| |-- final_meteorite_data.json
+| |-- meteorite-landings.csv 
+| |-- meteorites\_draft.geojson 
+|-- ETL notebook/ 
+| |-- meteorite-landings.ipynb 
+|-- icons/ 
+| |-- meteor.png 
+| |-- meteor2.png 
+| |-- skull.png 
+|-- js/ 
+| |-- leaflet-heat.js 
+| |-- master\_logic.js 
+| |-- server.js 
+|-- master\_index.html 
+|-- serverless\_index.html 
+|-- README.md 
+
 
 ### Highlight of Key Project Files
 - `CSS/style.css` - styles master_index.html
+- `final_meteorite_data.csv` - final copy of the dataset in csv
+- `final_meteorite_data.json` - final copy of the dataset in json
 - `data/meteorite-landings.csv` - a backup of the NASA dataset
 - `data/meteorites_draft.geojson` - a sample MongoDB dataset with fetches from NASA
 - `ETL notebook/meteorite-landings.ipynb` - Jupyter Notebook with the first extraction, transformation and loading code (from NASA to MongoDB instance)
@@ -107,7 +110,7 @@ To provide an interactive and educational tool that allows users to explore mete
 - `js/leaflet-heat.js` - plot the heat map layer
 - `js/master_logic.js` - GeoJSON map layers and Plotly
 - `master_index.html` - render the visualization app
-- `The Sky is Falling!!!.ppt` - a skim of the project.
+- `serverless_index.html` - a skim of the project.
 
 ### The Dashboard
 
@@ -153,7 +156,7 @@ This will start the server at `http://localhost:3000`.
 
 ### Deployment
 
-*   Deploy the `master_index.html` along with necessary CSS, JS, and data files to GitHub Pages or any static site hosting service.
+*   Deploy the `server_index.html` along with necessary CSS, JS, and data files to GitHub Pages or any static site hosting service.
 
 By following these steps, you will be able to set up and run the visualization locally. If you encounter any issues, please refer to the project documentation and references provided.Word to Markdown Converter
 
