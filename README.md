@@ -114,6 +114,51 @@ To provide an interactive and educational tool that allows users to explore mete
 ![TheDashboard](https://github.com/pabloandresguinda/Project_3_Group_4_Meteorites/assets/118937365/7163e922-0671-4542-98ec-e46a4ea2ad98)
 
 
+
+### Step-by-Step Guide
+
+#### 1. Clone the Repository
+\`\`\`bash
+git clone https://github.com/pabloandresguinda/Project_3_Group_4_Meteorites.git
+cd your-repo-name
+
+#### 2\. Set Up MongoDB
+
+*   Install MongoDB and start the MongoDB server.
+*   Create a database named `meteorites`.
+
+#### 3\. Data Cleaning and Preprocessing
+
+*   Open the `ETL notebook/meteorite-landings.ipynb` file.
+*   Run all cells to clean the dataset and upload it to the MongoDB instance.
+
+#### 4\. Install Node.js Dependencies
+
+bash
+Copy code
+cd js
+npm install
+
+#### 5\. Start the Node.js Server
+
+bash
+Copy code
+node server.js
+
+This will start the server at `http://localhost:3000`.
+
+#### 6\. View the Application
+
+*   Open `master_index.html` in a web browser to view the interactive map.
+
+### Deployment
+
+*   Deploy the `master_index.html` along with necessary CSS, JS, and data files to GitHub Pages or any static site hosting service.
+
+By following these steps, you will be able to set up and run the visualization locally. If you encounter any issues, please refer to the project documentation and references provided.Word to Markdown Converter
+
+
+
 ## Ethical Considerations
 Throughout this project, we prioritized data privacy and ethical use of information. The meteorite strike data sourced from NASA is publicly available and does not contain any personal or sensitive information about individuals. This aligns with ethical guidelines and regulations such as the General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA), which emphasize the importance of protecting personal data and ensuring its ethical use. Using data from a reputable source like NASA ensures that the information is accurate and reliable. We ensured that our use of this data was strictly for educational and analytical purposes, avoiding any potential misuse or misrepresentation. Our visualizations and analyses were designed to provide insights into meteorite strikes, a natural phenomenon, without causing harm or bias.
 
