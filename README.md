@@ -114,6 +114,12 @@ To provide an interactive and educational tool that allows users to explore mete
 ![TheDashboard](https://github.com/pabloandresguinda/Project_3_Group_4_Meteorites/assets/118937365/7163e922-0671-4542-98ec-e46a4ea2ad98)
 
 
+## Ethical Considerations
+Throughout this project, we prioritized data privacy and ethical use of information. The meteorite strike data sourced from NASA is publicly available and does not contain any personal or sensitive information about individuals. This aligns with ethical guidelines and regulations such as the General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA), which emphasize the importance of protecting personal data and ensuring its ethical use. Using data from a reputable source like NASA ensures that the information is accurate and reliable. We ensured that our use of this data was strictly for educational and analytical purposes, avoiding any potential misuse or misrepresentation. Our visualizations and analyses were designed to provide insights into meteorite strikes, a natural phenomenon, without causing harm or bias.
+
+We observed that using an API call to fetch data in real time allows for up-to-date information, enhancing the relevance and accuracy of our visualizations. However, this also necessitates careful handling of data to avoid overloading the server or violating any terms of service set by NASA. Adhering to these guidelines ensures that we respect the data provider's policies and maintain the integrity of our project. By focusing on meteorite strikes, we avoid ethical issues related to personal privacy or sensitive information. Our project demonstrates a commitment to ethical standards in data use, ensuring that the information is used responsibly and respectfully. This approach not only complies with legal requirements but also fosters trust and credibility in our work.
+
+
 ## References
 
 - https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh/data_preview
