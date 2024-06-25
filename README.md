@@ -114,19 +114,20 @@ To provide an interactive and educational tool that allows users to explore mete
 ![TheDashboard](https://github.com/pabloandresguinda/Project_3_Group_4_Meteorites/assets/118937365/7163e922-0671-4542-98ec-e46a4ea2ad98)
 
 
-References for the data source(s):
-https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh/data_preview
-https://data.nasa.gov/resource/gh4g-9sfh.json?$limit=50000
-https://medium.com/luwd-media/interstellar-christopher-nolan-s-life-affirming-new-masterpiece-aeb9f341422b
-https://en.wikipedia.org/wiki/Ann_Elizabeth_Fowler_Hodges#:~:text=She%20recalled%20the%20meteorite%20came,giving%20her%20a%20large%20bruise.
-https://www.istockphoto.com/photo/star-shower-gm503020332-81472357
-https://www.astronomy.com/science/unlucky-unconfirmed-tales-of-people-killed-by-meteorites/
-https://www.logo.wine/logo/PostgreSQL
-https://worldvectorlogo.com/logo/mongodb-icon-1
-https://commons.wikimedia.org/wiki/File:Sqlite-square-icon.svg
-https://chatgpt.com/
-https://github.com/
-Xpert learning Assistant https://bootcampspot.instructure.com/courses/5099/external_tools/313 
+## References
+
+- https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh/data_preview
+- https://data.nasa.gov/resource/gh4g-9sfh.json?$limit=50000
+- https://medium.com/luwd-media/interstellar-christopher-nolan-s-life-affirming-new-masterpiece-aeb9f341422b
+- https://en.wikipedia.org/wiki/Ann_Elizabeth_Fowler_Hodges#:~:text=She%20recalled%20the%20meteorite%20came,giving%20her%20a%20large%20bruise.
+- https://www.istockphoto.com/photo/star-shower-gm503020332-81472357
+- https://www.astronomy.com/science/unlucky-unconfirmed-tales-of-people-killed-by-meteorites/
+- https://www.logo.wine/logo/PostgreSQL
+- https://worldvectorlogo.com/logo/mongodb-icon-1
+- https://commons.wikimedia.org/wiki/File:Sqlite-square-icon.svg
+- https://chatgpt.com/
+- https://github.com/
+- Xpert Learning Assistant https://bootcampspot.instructure.com/courses/5099/external_tools/313 
 
 
 
