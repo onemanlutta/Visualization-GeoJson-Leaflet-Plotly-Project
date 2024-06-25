@@ -4,12 +4,14 @@
 **Mission, The Sky is Falling!**
 
 ### The Challenge
-Build an interactive map of the different types of meteorites that have fallen from the sky between the years 2016 and 2024 around the world. The user will be able to see what type of meteorite it is (meteorites are often divided into three overall categories based on whether they are dominantly composed of rocky material, metallic material, or mixtures) and the mass in grams in a colorful way, including a drop-down menu to choose the year(s) and category type. The dataset contains over 45,000 rows of data!
+Build an interactive map of the different types of meteorites that fell from the sky worldwide. The user will be able to see what type of meteorite it is (meteorites are often divided into three overall categories based on whether they are dominantly composed of rocky material, metallic material, or mixtures) and the mass in grams in a colorful way, including a drop-down menu to choose the year(s) and category type. The dataset contains over 45,000 rows of data!
 
 ### Approach
 - Gather bulk data from the NASA database.
-- Clean and slim down the dataset and upload it to a Postgres instance using SQL Alchemy.
-- Download the data locally and import it into JavaScript as a GeoJSON file.
+- Preprocess the dataset and transform it to a GeoPandas DataFrame.
+- Upload the data frame to a MongoDB instance.
+- Instantiate and connect the MongoDB to Node JS.
+- Import the database from Node JS into JavaScript as a GeoJSON file.
 - Run Leaflet/D3/Plotly in JavaScript to create the interactive map.
 - Deploy the map using GitHub Pages.
 
@@ -28,9 +30,15 @@ Build an interactive map of the different types of meteorites that have fallen f
 ### Motivation
 To provide an interactive and educational tool that allows users to explore meteorite data in a visually engaging manner.
 
+### The Process Map
+
+![TheProcessMap](https://github.com/pabloandresguinda/Project_3_Group_4_Meteorites/assets/118937365/7544fd52-a05f-475e-9352-aee48143239d)
+
+
 ### Tools/Modules to Use
 - Python (for data cleaning and processing)
-- SQLAlchemy (for database integration)
+- MongoDB (for database integration)
+- Node JS (project back-end server)
 - JavaScript (for front-end development)
 - Leaflet, D3, Plotly (for data visualization)
 - GitHub Pages (for deployment)
@@ -55,8 +63,8 @@ To provide an interactive and educational tool that allows users to explore mete
 
 ### Aye Nyein Mon and Maero Athanasius Lutta
 - Data cleaning and preprocessing
-- Database integration using SQL Alchemy
-- Uploading the dataset to a Postgres instance
+- Database integration and modeling in MongoDB
+- Uploading the GeoPandas DataFrame to a MongoDB instance
 
 ### Nicholas Wiid and Pablos Andres Guinda
 - Front-end development using JavaScript
@@ -64,21 +72,51 @@ To provide an interactive and educational tool that allows users to explore mete
 - Deploying the map using GitHub Pages
 
 ### All
+- Cross-cutting JavaScript charting and GeoJSON mapping
 - Documentation and project presentation
 
-An overview of the project and its purpose
+### Project File Structure
 
-Instructions on how to use and interact with the project
+|-- CSS/
+|   |-- style.css
+|-- data/
+|   |-- meteorite-landings.csv
+|   |-- meteorites_draft.geojson
+|-- ETL notebook/
+|   |-- meteorite-landings.ipynb
+|-- icons/
+|   |-- meteor.png
+|   |-- meteor2.png
+|   |-- skull.png
+|-- js/
+|   |-- leaflet-heat.js
+|   |-- master_logic.js
+|   |-- server.js
+|-- master_index.html
+|-- README.md
+|-- The Sky is Falling!!!.ppt
+|-- TheDashboard.png
+|-- TheProcessMap.png
 
-Documentation of the database used and why (e.g. benefits of SQL or NoSQL for this project)
+### Highlight of Key Project Files
+- `CSS/style.css` - styles master_index.html
+- `data/meteorite-landings.csv` - a backup of the NASA dataset
+- `data/meteorites_draft.geojson` - a sample MongoDB dataset with fetches from NASA
+- `ETL notebook/meteorite-landings.ipynb` - Jupyter Notebook with the first extraction, transformation and loading code (from NASA to MongoDB instance)
+- `js/server.js` - instantiate Node JS server
+- `js/leaflet-heat.js` - plot the heat map layer
+- `js/master_logic.js` - GeoJSON map layers and Plotly
+- `master_index.html` - render the visualization app
+- `The Sky is Falling!!!.ppt` - a skim of the project.
 
-ETL workflow with diagrams or ERD
+### The Dashboard
 
-At least one paragraph summarizing efforts for ethical considerations made in the project
+![TheDashboard](https://github.com/pabloandresguinda/Project_3_Group_4_Meteorites/assets/118937365/7163e922-0671-4542-98ec-e46a4ea2ad98)
+
 
 References for the data source(s)
 
-References for any code used that is not your own
+
 
 
 
