@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Meteorites Map</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    
+    <!-- Leaflet JavaScript code -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+
+    <!-- Leaflet heatmap plugin-->
+    <script type="text/javascript" src="js/leaflet-heat.js"></script>
+
+    <!-- D3 library -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- Marker cluster JavaScript code -->
+    <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
+
+    <!-- Marker cluster CSS -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 p-2 text-center header_box">
+          <h1>The Sky is Falling!</h1><h5>Historical record of Meteorite landings</h5>
+        </div>
+      </div>
+      <div class="row map-box">
+        <div class="col-md-3">
+          <div class="card card-body dropdown">
+            <h6>Year selector menu</h6>
+            <div id ="dropdownContainer"></div>
+            <select id="dropdownMenu">
+              <option value="default">All Years</option>
+              <option value="1949 & Prior">1949 & Prior</option>
+              <option value="1950-1959">1950-1959</option>
+              <option value="1960-1969">1960-1969</option>
+              <option value="1970-1979">1970-1979</option>
+              <option value="1980-1989">1980-1989</option>
+              <option value="1990-1999">1990-1999</option>
+              <option value="2000-2009">2000-2009</option>
+              <option value="2010-2019">2010-2019</option>
+              <option value="2020 to date">2020 to date</option>
+              <option value="65 million-">65 million years ago</option>
+            </select>
+          </div>
+          <div class="card card-body video-box">
+            <h6>Meteor Showers 101 | Nat Geo</h6>
+            <div id="video" class="video-box">
+              <iframe width="100%" height="220" src="https://www.youtube.com/embed/zkglsg0K1IY" title="Meteor Showers 101 | National Geographic" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+          <br>
+          <div class="card card-body barchart">
+            <h6>Meteorite Strikes by Year Group</h6>
+            <div id="chart" class="chart-left">
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="col-md-9 p-4">
+          <div id="map" class="flex-grow-1">
+          </div>
+          <br>
+        </div>
+      </div>
+      <div class="card card-primary">
+        <div class="card-header">
+          <h4 class="card-title">News flash</h4>
+        </div>
+        <!-- News Ticker Section -->
+          <section class="ticker-container">
+            <div class="container">
+              <div class="ticker">
+                <div>BREAKING NEWS: 1200 injured in Chelyabinsk (Russia, 2013)!</div>
+                <div>Ann Hodges is hit in Alabama (USA, 1954)!</div>
+                <div>A person dies in Ottoman Empire (Iraqi, 1888)!</div>
+                <div>More than 100,000 stones fall from the sky near Warsaw (Poland, 1868) weighing upto 20 pounds!</div>
+                <div>Two sailors die on the Dutch ship Malacca, at sea (between Holland and the Dutch East Indies, 1648)!</div>
+                <div>10,000 people die in Qingyang (China, 1490)!</div>
+                <div>Many people and animals die in Yunnan Province (China, 1341) from 'Iron Rain'!</div>
+                <div> Large shooting stars fall on the rebel Lu Ming-yueh's camp (China, A.D. 616),</div>
+                <div>WATCH OUT</div>
+              </div>
+            </div>
+          </section>
+        <!-- <div id="sample-metadata" class="card-body">
+        </div> -->
+      </div>
+      <br>
+    </div>
+    
+
+    <!-- Our JavaScript -->
+    <script src="js/serverless_logic.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- <script src="js/barchart.js"></script> -->
+  </body>
+</html>
